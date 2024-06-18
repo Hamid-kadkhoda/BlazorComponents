@@ -1,0 +1,19 @@
+﻿
+.blazor-inputtext {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.blazor-inputtext input {
+    border: 1px solid #dedede;
+    border-radius: 6px;
+    color: #2c2c2c;
+    padding: 8px;
+    font-size: 16px;
+    outline-color: #408338;
+}
+
+.blazor-inputtext label {
+    color: gray;
+}

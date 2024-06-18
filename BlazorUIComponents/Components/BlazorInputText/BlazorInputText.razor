@@ -1,0 +1,32 @@
+﻿
+
+
+<div class="flex flex-column blazor-inputtext">
+    <label>@Label</label>
+    <input 
+        @oninput="OnInputChange" 
+        placeholder="@Placeholder" 
+        type="text" 
+        @bind-value="Value" />
+</div>
+
+@code {
+
+    [Parameter] public string? Style { get; set; }
+
+    [Parameter] public string? StyleClass { get; set; }
+
+    [Parameter] public string? Value { get; set; }
+
+    [Parameter] public string? Placeholder { get; set; }
+
+    [Parameter] public string? Label { get; set; }
+
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+
+    private void OnInputChange(ChangeEventArgs e)
+    {
+        Value = e.Value?.ToString();
+        this.ValueChanged.InvokeAsync(Value);
+    }
+}

@@ -1,0 +1,22 @@
+
+@import "../primeflex/primeflex.min.css";
+@import "../primeflex/themes/primeone-light.min.css";
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+    transition: all 200ms ease-out;
+}
+
+button {
+    border: none;
+    display: flex;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+    justify-content: center;
+}

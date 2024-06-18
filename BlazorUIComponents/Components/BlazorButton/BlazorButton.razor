@@ -1,0 +1,28 @@
+﻿
+
+<button 
+    style="@Style"
+    type="@Type"
+    @onclick="OnButtonClicked" 
+    class="@StyleClass blazor-button">
+    @Value
+</button>
+
+@code {
+
+    [Parameter] public string? Style { get; set; }
+
+    [Parameter] public string? StyleClass { get; set; }
+
+    [Parameter] public string Type { get; set; } = "button";
+
+    [Parameter] public string? Value { get; set; }
+
+    [Parameter] public EventCallback OnClick { get; set; }
+
+
+    private void OnButtonClicked()
+    {
+        this.OnClick.InvokeAsync();
+    }
+}

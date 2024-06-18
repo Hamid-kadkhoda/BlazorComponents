@@ -1,0 +1,20 @@
+﻿
+.blazor-button {
+    padding: 12px;
+    width: max-content;
+    border-radius: 6px;
+    background-color: #2066e8;
+    color: #fff;
+    font-weight: bold;
+}
+
+    .blazor-button:hover {
+        background-color: #194fa0;
+    }
+
+    .blazor-button:active {
+        scale: 0.99;
+    }
+
+    .blazor-button:focus {
+    }

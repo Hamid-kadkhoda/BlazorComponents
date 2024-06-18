@@ -1,0 +1,22 @@
+﻿
+<div 
+    style="@Style" 
+    class="@StyleClass flex 
+        @(Vertical ? "flex-column justify-content-center" : "align-items-center")
+        gap-@Spacing">
+
+        @Content
+</div>
+
+@code {
+
+    [Parameter] public string? Style { get; set; }
+
+    [Parameter] public string? StyleClass { get; set; }
+
+    [Parameter] public int Spacing { get; set; } = 0;
+
+    [Parameter] public bool Vertical { get; set; } = false;
+
+    [Parameter] public RenderFragment? Content { get; set; }
+}
