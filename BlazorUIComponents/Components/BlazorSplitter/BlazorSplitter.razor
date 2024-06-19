@@ -1,0 +1,76 @@
+﻿@using Microsoft.JSInterop
+
+@inject IJSRuntime IJSRuntime
+
+<div class="blazor-splitter">
+    <div tabindex="-1" style="@LeftStyle"
+    class="blazor-splitter-panel blazor-splitter-panel-1">
+        @Left
+    </div>
+    <div 
+        @onmousemove="OnSplitterMouseMove"
+        @onmouseup="OnSplitterMouseUp"
+        @onmousedown="OnSplitterMouseDown"
+        id="splitter" role="separator">
+
+    </div>
+    <div tabindex="-1" style="@RightStyle"
+    class="blazor-splitter-panel blazor-splitter-panel-2">
+        @Right
+    </div>
+</div>
+
+@code {
+
+    [Parameter] public RenderFragment? Left { get; set; }
+
+    [Parameter] public RenderFragment? Right { get; set; }
+
+    private string? LeftStyle { get; set; }
+
+    private string? RightStyle { get; set; }
+
+    private double LastX { get; set; } = 0 ;
+
+    private bool MouseMoveEnabled { get; set; } = false;
+
+    private bool MouseDownEnabled { get; set; } = true;
+
+    private bool MouseUpEnabled { get; set; } = false;
+
+    private void OnSplitterMouseDown(MouseEventArgs e)
+    {
+        if(MouseDownEnabled)
+        {
+            this.MouseDownEnabled = false;
+            this.MouseMoveEnabled = true;
+            this.MouseUpEnabled = true;
+            LastX = e.ClientX;
+        }
+    }
+
+    private void OnSplitterMouseMove(MouseEventArgs e)
+    {
+        if(MouseMoveEnabled)
+        {
+
+        }
+        //Console.WriteLine(e.ClientX);
+    }
+
+    private void OnSplitterMouseUp(MouseEventArgs e)
+    {
+        if (MouseUpEnabled)
+        {
+            this.MouseMoveEnabled = false;
+            this.MouseUpEnabled = false;
+        }
+        //Console.WriteLine(e.ClientX);
+    }
+
+    private void ResetPosition(double NowX)
+    {
+        var dx = NowX - LastX;
+        dx += 
+    }
+}

@@ -16,4 +16,8 @@
     <ProjectReference Include="..\BlazorUIComponents\BlazorUIComponents.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
 </Project>

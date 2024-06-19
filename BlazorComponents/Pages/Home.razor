@@ -3,16 +3,37 @@
 
 @page "/"
 
-<h1>Blazor Form</h1>
 
-<hr />
+<main class="p-5">
 
-<main class="w-4">
 </main>
 
-<BlazorDialog Visibility="true">
-    <Content>
+
+
+<BlazorDialog @bind-Visibility="@MyProperty">
+        <BlazorDropdown 
+            Options="@DatabaseOption" 
+            Placeholder="Select Database">
+        </BlazorDropdown>
+        <hr />
         <CreateAddressForm></CreateAddressForm>
-    </Content>
 </BlazorDialog>
 
+
+@code {
+    public bool MyProperty { get; set; } = false;
+
+    private List<object> DatabaseOption = new()
+    {
+        new
+        {
+            name = "SQL SERVER",
+            code = "1",
+        },
+        new
+        {
+            name = "ORACLE",
+            code = "2",
+        },
+    };
+}

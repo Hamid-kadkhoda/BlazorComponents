@@ -27,7 +27,7 @@
                             </button>
                         </div>
                 </div>
-                @Content
+                @ChildContent
             </div>
     </div>
 }
@@ -43,7 +43,7 @@
 
     [Parameter] public string? Header { get; set; }
 
-    [Parameter] public RenderFragment? Content { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 
     private bool _Visibility { get; set; } = false;
 
@@ -66,13 +66,13 @@
                     {
                         await Task.Delay(300); // Wait for the close animation to finish
                         _Visibility = false;
-                        await VisibilityChange.InvokeAsync(_Visibility);
+                        await VisibilityChanged.InvokeAsync(_Visibility);
                         StateHasChanged();
                     });
                     return;
                 }
                 _Visibility = value;
-                VisibilityChange.InvokeAsync(_Visibility);
+                VisibilityChanged.InvokeAsync(_Visibility);
                 StateHasChanged();
             }
         }
@@ -84,7 +84,7 @@
 
     private string? TransitionOption { get; set; } = "250ms ease-in-out";
 
-    [Parameter] public EventCallback<bool> VisibilityChange { get; set; }
+    [Parameter] public EventCallback<bool> VisibilityChanged { get; set; }
 
     private string? DialogClass { get; set; }
 
@@ -103,5 +103,6 @@
     private void CloseDialog()
     {
         Visibility = false;
+        VisibilityChanged.InvokeAsync(Visibility);
     }
 }

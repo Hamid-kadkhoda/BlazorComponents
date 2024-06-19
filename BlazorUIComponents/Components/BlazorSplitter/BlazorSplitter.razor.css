@@ -1,0 +1,21 @@
+﻿
+
+.blazor-splitter {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    height: 50vh;
+    border-collapse: collapse;
+}
+
+.blazor-splitter-panel {
+    width: calc(50% - 2px);
+    border: 1px solid #dedede;
+}
+
+div[role=separator] {
+    cursor: col-resize;
+    width: 2px;
+    height: 100%;
+    background-color: #dedede;
+}

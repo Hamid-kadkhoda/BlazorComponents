@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorComponents.ViewModels
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{FD4D1D8F-EE05-4663-8DE8-C389FFD1BEDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorUIComponents", "BlazorUIComponents\BlazorUIComponents.csproj", "{255B54FD-F133-47C6-97CB-9A0E4F98C81F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorUIComponents", "BlazorUIComponents\BlazorUIComponents.csproj", "{255B54FD-F133-47C6-97CB-9A0E4F98C81F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

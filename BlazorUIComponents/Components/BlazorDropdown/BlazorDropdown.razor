@@ -1,0 +1,51 @@
+﻿
+<div style="@Style" class="@StyleClass blazor-dropdown">
+    <div role="button" 
+        @onclick="() => OverlayVisible = !OverlayVisible" 
+        class="blazor-dropdown-toggle">
+        <div class="blazor-dropdown-placeholder">
+            @Placeholder
+        </div>
+        <div class="blazor-dropdown-icon">
+            <ChevronDownIcon></ChevronDownIcon>
+        </div>
+    </div>
+    @if(OverlayVisible)
+    {
+        <ul class="blazor-dropdown-overlay">
+            @foreach (var item in Options!)
+            {
+                <li @onclick="() => OnClickItem(item)">
+                    @item.GetType().GetProperty(OptionLabel)?.GetValue(item)
+                </li>
+            }
+        </ul>        
+    }
+</div>
+
+@code {
+
+    [Parameter] public string? Style { get; set; }
+
+    [Parameter] public string? StyleClass { get; set; }
+
+    [Parameter] public string? Placeholder { get; set; }
+
+    [Parameter] public string OptionLabel { get; set; } = "name";
+
+    [Parameter] public string OptionValue { get; set; } = "code";
+
+    [Parameter] public object? Value { get; set; }
+
+    [Parameter] public bool OverlayVisible { get; set; } = false;
+
+    [Parameter] public List<object> Options { get; set; } = new();
+
+    [Parameter] public EventCallback<object> OnChange { get; set; }
+
+    private void OnClickItem(object item)
+    {
+        this.Value = item;
+        this.OnChange.InvokeAsync(Value);
+    }
+}
