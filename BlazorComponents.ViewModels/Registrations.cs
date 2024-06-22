@@ -7,6 +7,7 @@ namespace BlazorComponents.ViewModels
         public static void AddViewModels(this IServiceCollection services)
         {
             services.AddScoped<DataGridViewModel>();
+            services.AddScoped<HomeViewModel>();
         }
     }
 }

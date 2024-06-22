@@ -1,0 +1,62 @@
+﻿@using System.Reflection
+
+@typeparam TData; 
+
+<div class="blazor-datagrid">
+    <table>
+        <thead>
+            <tr>
+                @foreach (var col in ColumnDefs!)
+                {
+                    <th>@col.Name</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var record in DataRow!)
+            {
+                <tr>
+                    @foreach (var col in ColumnDefs!)
+                    {
+                        <td>
+                            @if (GetValue(record, col.Name) is Uri Src)
+                            {
+                                <img width="50" src="@Src" />
+                            }
+                            @if (GetValue(record, col.Name) is string text)
+                            {
+                                <div>@text</div>
+                            }
+                            @if (GetValue(record, col.Name) is bool bvalue)
+                            {
+                                <input type="checkbox" @bind-value="@bvalue"/>
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+</table>
+</div>
+
+
+@code {
+
+    private IEnumerable<TData>? _DataRow;
+
+    [Parameter] public IEnumerable<TData>? DataRow
+    {
+        get => _DataRow;
+        set
+        {
+            _DataRow = value;
+            this.ColumnDefs = _DataRow?.FirstOrDefault()?.GetType().GetProperties();        }
+        }
+
+    public IEnumerable<PropertyInfo>? ColumnDefs { get; set; }
+
+    private object? GetValue(TData Record,string Column)
+    {
+        return Record?.GetType().GetProperty(Column)?.GetValue(Record);
+    }
+}

@@ -5,6 +5,9 @@ namespace BlazorComponents.ViewModels.Common
 {
     public abstract class ViewModelBase: ObservableObject
     {
+        public virtual void OnViewModelInitialized()
+        {
 
+        }
     }
 }

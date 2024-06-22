@@ -1,39 +1,34 @@
-﻿@using BlazorComponents.Forms
+﻿@using BlazorComponents.Components
+@using BlazorComponents.Components.Common
+@using BlazorComponents.Forms
+@using BlazorComponents.ViewModels
 @using BlazorUIComponents.Components.BlazorInputText
+@using Blazored.Modal.Services
 
 @page "/"
 
+@inherits BaseComponent<HomeViewModel>
 
-<main class="p-5">
-
+<main class="p-5 h-30rem">
+    <div class="border-2 p-3 border-round shadow-5 border-300 h-full w-full">
+        <CascadingValue Value="@Property1">
+            <CascadingValue Value="@Property2">
+                <ChildComponent></ChildComponent>
+            </CascadingValue>
+        </CascadingValue>
+    </div>
 </main>
 
-
-
-<BlazorDialog @bind-Visibility="@MyProperty">
-        <BlazorDropdown 
-            Options="@DatabaseOption" 
-            Placeholder="Select Database">
-        </BlazorDropdown>
-        <hr />
-        <CreateAddressForm></CreateAddressForm>
-</BlazorDialog>
-
-
 @code {
-    public bool MyProperty { get; set; } = false;
 
-    private List<object> DatabaseOption = new()
+    [CascadingParameter] public IModalService Modal { get; set; } = default!;
+
+    public string Property1 { get; set; } = "parent property";
+
+    public string Property2 { get; set; } = "new parent property";
+
+    protected override void OnInitialized()
     {
-        new
-        {
-            name = "SQL SERVER",
-            code = "1",
-        },
-        new
-        {
-            name = "ORACLE",
-            code = "2",
-        },
-    };
+        this.ViewModel.OnViewModelInitialized();
+    }
 }

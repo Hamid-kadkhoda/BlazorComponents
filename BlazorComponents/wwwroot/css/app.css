@@ -2,6 +2,12 @@
 @import "../primeflex/primeflex.min.css";
 @import "../primeflex/themes/primeone-light.min.css";
 
+@font-face {
+    font-family: 'Google Sans';
+    src: url("/Fonts/googleSans.woff2") format('woff2');
+
+}
+
 body {
     padding: 0;
     margin: 0;
@@ -10,6 +16,7 @@ body {
 * {
     box-sizing: border-box;
     transition: all 200ms ease-out;
+    font-family: "Google Sans"
 }
 
 button {

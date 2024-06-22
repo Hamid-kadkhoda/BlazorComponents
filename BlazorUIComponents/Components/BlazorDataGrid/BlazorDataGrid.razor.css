@@ -1,0 +1,11 @@
+﻿
+
+.blazor-datagrid {
+    width: 100%;
+}
+
+.blazor-datagrid table {
+    width: 100%;
+    border-collapse: collapse;
+}
+

@@ -13,7 +13,7 @@
     }
 
     .blazor-button:active {
-        scale: 0.99;
+        scale: 0.98;
     }
 
     .blazor-button:focus {
