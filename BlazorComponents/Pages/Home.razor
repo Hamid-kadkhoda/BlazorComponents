@@ -1,34 +1,39 @@
-﻿@using BlazorComponents.Components
-@using BlazorComponents.Components.Common
+﻿@using BlazorComponents.Components.Common
 @using BlazorComponents.Forms
+@using BlazorComponents.Models.Common
 @using BlazorComponents.ViewModels
 @using BlazorUIComponents.Components.BlazorInputText
 @using Blazored.Modal.Services
+@using BlazorComponents.Components
+@using System.Reflection
 
 @page "/"
 
-@inherits BaseComponent<HomeViewModel>
+@* @inherits BaseComponent<HomeViewModel> *@
 
-<main class="p-5 h-30rem">
-    <div class="border-2 p-3 border-round shadow-5 border-300 h-full w-full">
-        <CascadingValue Value="@Property1">
-            <CascadingValue Value="@Property2">
-                <ChildComponent></ChildComponent>
-            </CascadingValue>
-        </CascadingValue>
-    </div>
+<main class="p-5">
+    <BlazorMenu Items="@Options"></BlazorMenu>
 </main>
 
+<BlazorDialog @bind-Visibility="@ShowDialog">
+    <InputTextArea></InputTextArea>
+</BlazorDialog>
+
 @code {
+    private List<MenuItem> Options = [
+    new() { Label = "Add", Command = () => { Console.WriteLine("Add Record"); } },
+    new() { Label = "Edit", Command = () => { Console.WriteLine("Edit Record"); }  },
+    new() { Label = "Delete" , Command = () => { Console.WriteLine("Delete Record"); } },
+    new() { Label = "Open" },
+    new() { Label = "Go to Detail" , RouterLink = "https://google.com"},
+    ];
 
-    [CascadingParameter] public IModalService Modal { get; set; } = default!;
+    public bool ShowDialog { get; set; } = false;
 
-    public string Property1 { get; set; } = "parent property";
-
-    public string Property2 { get; set; } = "new parent property";
+    public void OpenDialog() => ShowDialog = true;
 
     protected override void OnInitialized()
     {
-        this.ViewModel.OnViewModelInitialized();
+        this.Options.FirstOrDefault(o => o.Label == "Open")!.Command = () => OpenDialog();
     }
 }

@@ -20,4 +20,8 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BlazorComponents.Models\BlazorComponents.Models.csproj" />
+  </ItemGroup>
+
 </Project>

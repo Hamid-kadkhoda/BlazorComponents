@@ -1,0 +1,26 @@
+﻿@using BlazorComponents.Models.Common
+
+
+<div class="blazor-menu border-1 w-20rem border-300">
+    <ol class="p-0 m-0">
+        @foreach (var item in Items!)
+        {
+            <li class="flex list-none">
+                @if (!string.IsNullOrEmpty(item.RouterLink))
+                {
+                    <a role="link" class="hover:surface-200 cursor-pointer w-full p-1"
+                    href="@item.RouterLink">@item.Label</a>
+                } else
+                {
+                    <a role="button" class="hover:surface-200 cursor-pointer w-full p-1"
+                    @onclick="() => item.Command?.Invoke()">@item.Label</a>
+                }           
+            </li>
+        }
+    </ol>
+</div>
+
+@code {
+
+    [Parameter] public List<MenuItem>? Items { get; set; } = new();
+}

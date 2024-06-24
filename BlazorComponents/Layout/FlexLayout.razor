@@ -5,7 +5,7 @@
         @(Vertical ? "flex-column justify-content-center" : "align-items-center")
         gap-@Spacing">
 
-        @Content
+    @ChildContent
 </div>
 
 @code {
@@ -18,5 +18,5 @@
 
     [Parameter] public bool Vertical { get; set; } = false;
 
-    [Parameter] public RenderFragment? Content { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 }
