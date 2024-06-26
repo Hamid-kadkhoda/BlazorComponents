@@ -1,0 +1,19 @@
+﻿
+@typeparam TComponent
+
+<li class="nav-item">
+    <a class="nav-link @(IsActive ? "active" : "")" href="#" @onclick="OnClick">
+        @Title
+    </a>
+</li>
+
+@code {
+
+    [Parameter] public string? Title { get; set; }
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    [Parameter] public bool IsActive { get; set; }
+
+    [Parameter] public EventCallback OnClick { get; set; }
+}

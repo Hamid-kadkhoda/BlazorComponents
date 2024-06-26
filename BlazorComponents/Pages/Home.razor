@@ -9,31 +9,14 @@
 
 @page "/"
 
-@* @inherits BaseComponent<HomeViewModel> *@
-
 <main class="p-5">
-    <BlazorMenu Items="@Options"></BlazorMenu>
+    <BlazorTabControl TComponent="Type"></BlazorTabControl>
 </main>
 
-<BlazorDialog @bind-Visibility="@ShowDialog">
+<BlazorDialog>
     <InputTextArea></InputTextArea>
 </BlazorDialog>
 
 @code {
-    private List<MenuItem> Options = [
-    new() { Label = "Add", Command = () => { Console.WriteLine("Add Record"); } },
-    new() { Label = "Edit", Command = () => { Console.WriteLine("Edit Record"); }  },
-    new() { Label = "Delete" , Command = () => { Console.WriteLine("Delete Record"); } },
-    new() { Label = "Open" },
-    new() { Label = "Go to Detail" , RouterLink = "https://google.com"},
-    ];
 
-    public bool ShowDialog { get; set; } = false;
-
-    public void OpenDialog() => ShowDialog = true;
-
-    protected override void OnInitialized()
-    {
-        this.Options.FirstOrDefault(o => o.Label == "Open")!.Command = () => OpenDialog();
-    }
 }
