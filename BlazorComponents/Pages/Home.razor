@@ -10,7 +10,8 @@
 @page "/"
 
 <main class="p-5">
-    <BlazorTabControl TComponent="Type"></BlazorTabControl>
+    @* <BlazorTabControl TComponent="Type"></BlazorTabControl> *@
+    <BlazorSwitch @bind-Value="@MyProperty"></BlazorSwitch>
 </main>
 
 <BlazorDialog>
@@ -19,4 +20,5 @@
 
 @code {
 
+    public bool MyProperty { get; set; } = true;
 }

@@ -1,0 +1,43 @@
+﻿
+<style>
+    .blazor-switch {
+        padding: 3px;
+        display: flex;
+        width: 2.7rem;
+        position: relative;
+        border-radius: 1rem;
+    }
+
+    .blazor-switch > .blazor-switch-toggle {
+        width: 1rem;
+        cursor: pointer;
+        transition: all 200ms ease-in-out;
+        height: 1rem;
+        position: relative;
+        border-radius: 50%;
+        background-color: #fff;
+    }
+
+</style>
+
+<div class="blazor-switch @(Value ? "bg-blue-500" : "surface-400")">
+    <div style="@(Value ? "left: 50%;" : "left: 0%")" role="button" @onclick="@OnToggle" class="blazor-switch-toggle"></div>
+</div>
+
+@code {
+
+    [Parameter] public string? Style { get; set; }
+
+    [Parameter] public string? StyleClass { get; set; }
+
+    [Parameter] public bool Value { get; set; } = false;
+
+    [Parameter] public EventCallback<bool> ValueChanged { get; set; }
+
+    private void OnToggle()
+    {
+        Value = !Value;
+        this.ValueChanged.InvokeAsync(Value);
+        Console.WriteLine(Value);
+    }
+}
