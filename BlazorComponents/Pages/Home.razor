@@ -7,11 +7,15 @@
 @using BlazorComponents.Components
 @using System.Reflection
 
-@page "/"
+@page "/Grid"
 
-<main class="p-5">
+<main class="p-5 flex justify-content-center">
     @* <BlazorTabControl TComponent="Type"></BlazorTabControl> *@
-    <BlazorSwitch @bind-Value="@MyProperty"></BlazorSwitch>
+    @* <BlazorSwitch @bind-Value="@MyProperty"></BlazorSwitch> *@
+    <div class="flex flex-column gap-4 align-items-center">
+        <BlazorDataGrid DataRow="@Data" TData="object"></BlazorDataGrid>
+        <BlazorPaginator TotalRecord="100"></BlazorPaginator>
+    </div>
 </main>
 
 <BlazorDialog>
@@ -21,4 +25,18 @@
 @code {
 
     public bool MyProperty { get; set; } = true;
+
+    List<object> Data = new();
+
+    protected override void OnInitialized()
+    {
+        for (int i = 0; i < 15; i++)
+        {
+            Data.Add(new
+            {
+                نام = $" name {i}",
+                فعال = i % 2 == 0,
+        });
+        }
+    }
 }

@@ -4,33 +4,52 @@
         padding: 3px;
         display: flex;
         width: 2.7rem;
+        cursor: pointer;
         position: relative;
         border-radius: 1rem;
     }
 
     .blazor-switch > .blazor-switch-toggle {
         width: 1rem;
-        cursor: pointer;
         transition: all 200ms ease-in-out;
         height: 1rem;
         position: relative;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         border-radius: 50%;
         background-color: #fff;
     }
 
 </style>
 
-<div class="blazor-switch @(Value ? "bg-blue-500" : "surface-400")">
-    <div style="@(Value ? "left: 50%;" : "left: 0%")" role="button" @onclick="@OnToggle" class="blazor-switch-toggle"></div>
+<div @onclick="@OnToggle" style="@SizeStyle @Style" class="blazor-switch
+@(Value ? "bg-blue-500" : "surface-400")">
+    <div style="@(Value ? "left: 50%;" : "left: 0%")"
+    role="button" class="blazor-switch-toggle"></div>
 </div>
 
 @code {
 
     [Parameter] public string? Style { get; set; }
 
+    [Parameter] public string? SizeStyle { get; set; } = "scale: 0.8;";
+
     [Parameter] public string? StyleClass { get; set; }
 
     [Parameter] public bool Value { get; set; } = false;
+
+    [Parameter] public string Size
+    {
+        set
+        {
+            SizeStyle = value switch
+            {
+                "small" => "scale: 0.9",
+                "base" => "scale: 1",
+                "large" => "scale: 1.2",
+                _ => "scale: 1",
+            };
+        }
+    }
 
     [Parameter] public EventCallback<bool> ValueChanged { get; set; }
 

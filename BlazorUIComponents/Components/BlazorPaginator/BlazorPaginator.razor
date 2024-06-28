@@ -1,5 +1,96 @@
-﻿<h3>BlazorPaginator</h3>
+﻿@using BlazorUIComponents.Components.BlazorPaginator.BlazorPaginatorIcons
+
+@inject NavigationManager Router
+
+<div style="@Style" class="@StyleClass blazor-paginator">
+    <button @onclick="OnFirst">
+        <DoubleChevronLeft></DoubleChevronLeft>
+    </button>
+    <button @onclick="OnPrevious">
+        <ChevronLeft></ChevronLeft>
+    </button>
+    @foreach (var Page in Pages)
+    {
+        <button 
+            @onclick="() => OnChangePageButtonClick(Page)"
+            class="@((CurrentPage == Page) ? "bg-blue-400 text-white" : "")">
+            @Page
+        </button>
+    }
+    <button @onclick="OnNext">
+        <ChevronRight></ChevronRight>
+    </button>
+    <button @onclick="OnLast">
+        <DoubleChevronRight></DoubleChevronRight>
+    </button>
+</div>
+
 
 @code {
+    [Parameter] public string? Style { get; set; }
+
+    [Parameter] public string? StyleClass { get; set; }
+
+    [Parameter] public int RowsPerPage { get; set; } = 10;
+
+    [Parameter] public int CurrentPage { get; set; } = 1;
+
+    [Parameter] public List<int> Pages { get; set; } = [];
+
+    private long _TotalRecord = 0;
+
+    [Parameter] public EventCallback OnPageChange { get; set; }
+
+    [Parameter] public long TotalRecord
+    {
+        get => _TotalRecord;
+        set
+        {
+            _TotalRecord = value;
+            Pages = [];
+            var PageSize = Math.Ceiling((decimal)value / RowsPerPage);
+            for (int i = 0; i < PageSize; i++)
+            {
+                Pages.Add(i+1);
+            }
+        }
+    }
+
+    private void QueryparamChanged()
+    {
+        var uri = new UriBuilder(Router.Uri);
+
+        Router.NavigateTo($"{uri.Path}?Page={CurrentPage}");
+    }
+
+    private void OnChangePageButtonClick(int page)
+    {
+        this.CurrentPage = page;
+        this.QueryparamChanged();
+    }
+
+    private void OnNext()
+    {
+        this.CurrentPage++;
+        this.QueryparamChanged();
+    }
+
+    private void OnPrevious()
+    {
+        this.CurrentPage--;
+        this.QueryparamChanged();
+    }
+
+    private void OnFirst()
+    {
+        this.CurrentPage = Pages.First();
+        this.QueryparamChanged();
+    }
+    
+    private void OnLast()
+    {
+        this.CurrentPage = Pages.Last();
+        this.QueryparamChanged();
+    }
 
 }

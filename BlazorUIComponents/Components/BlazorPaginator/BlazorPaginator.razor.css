@@ -1,0 +1,20 @@
+﻿
+
+.blazor-paginator {
+    display: flex;
+    align-items: center;
+}
+
+.blazor-paginator button {
+    width: 2rem;
+    height: 2rem;
+    transition: all 250ms ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.blazor-paginator button:hover {
+    background-color: #f2f2f2;
+}
