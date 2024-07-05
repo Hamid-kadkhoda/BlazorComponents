@@ -7,36 +7,57 @@
 @using BlazorComponents.Components
 @using System.Reflection
 
-@page "/Grid"
+@page "/"
 
-<main class="p-5 flex justify-content-center">
-    @* <BlazorTabControl TComponent="Type"></BlazorTabControl> *@
-    @* <BlazorSwitch @bind-Value="@MyProperty"></BlazorSwitch> *@
-    <div class="flex flex-column gap-4 align-items-center">
-        <BlazorDataGrid DataRow="@Data" TData="object"></BlazorDataGrid>
-        <BlazorPaginator TotalRecord="100"></BlazorPaginator>
-    </div>
-</main>
-
-<BlazorDialog>
-    <InputTextArea></InputTextArea>
-</BlazorDialog>
+<TabPanel></TabPanel>
 
 @code {
+    protected override void OnAfterRender(bool firstRender)
+    {
+        Console.WriteLine("Home OnAfterRender");
+        base.OnAfterRender(firstRender);
+    }
 
-    public bool MyProperty { get; set; } = true;
-
-    List<object> Data = new();
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        Console.WriteLine("Home OnAfterRenderAsync");
+        return base.OnAfterRenderAsync(firstRender);
+    }
 
     protected override void OnInitialized()
     {
-        for (int i = 0; i < 15; i++)
-        {
-            Data.Add(new
-            {
-                نام = $" name {i}",
-                فعال = i % 2 == 0,
-        });
-        }
+        Console.WriteLine("Home OnInitialized");
+        base.OnInitialized();
     }
+
+    protected override Task OnInitializedAsync()
+    {
+        Console.WriteLine("Home OnInitializedAsync");
+        return base.OnInitializedAsync();
+    }
+
+    protected override void OnParametersSet()
+    {
+        Console.WriteLine("Home OnParametersSet");
+        base.OnParametersSet();
+    }
+
+    protected override Task OnParametersSetAsync()
+    {
+        Console.WriteLine("Home OnParametersSetAsync");
+        return base.OnParametersSetAsync();
+    }
+
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        Console.WriteLine("Home SetParametersAsync");
+        return base.SetParametersAsync(parameters);
+    }
+
+    protected override bool ShouldRender()
+    {
+        Console.WriteLine("Home ShouldRender");
+        return base.ShouldRender();
+    }
+
 }

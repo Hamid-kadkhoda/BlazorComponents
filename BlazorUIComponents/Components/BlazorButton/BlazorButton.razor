@@ -1,4 +1,6 @@
-﻿
+﻿@using BlazorUIComponents.Components.Base
+
+@inherits BlazorComponent
 
 <button 
     style="@Style"
@@ -9,10 +11,6 @@
 </button>
 
 @code {
-
-    [Parameter] public string? Style { get; set; }
-
-    [Parameter] public string? StyleClass { get; set; }
 
     [Parameter] public string Type { get; set; } = "button";
 

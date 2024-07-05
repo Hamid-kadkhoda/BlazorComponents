@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorUIComponents", "Blazo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Api", "Blazor.Api\Blazor.Api.csproj", "{68DB853D-3191-4F0C-B216-24782463ABE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorIcons", "BlazorIcons\BlazorIcons.csproj", "{5678034E-5AD4-400C-90BF-EA76FB3FC565}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{68DB853D-3191-4F0C-B216-24782463ABE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68DB853D-3191-4F0C-B216-24782463ABE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68DB853D-3191-4F0C-B216-24782463ABE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5678034E-5AD4-400C-90BF-EA76FB3FC565}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5678034E-5AD4-400C-90BF-EA76FB3FC565}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5678034E-5AD4-400C-90BF-EA76FB3FC565}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5678034E-5AD4-400C-90BF-EA76FB3FC565}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

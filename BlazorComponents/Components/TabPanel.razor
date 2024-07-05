@@ -1,0 +1,60 @@
+﻿@using BlazorComponents.Components.Common
+@using BlazorComponents.Forms
+@using BlazorComponents.Models.Common
+@using BlazorComponents.ViewModels
+@using BlazorUIComponents.Components.BlazorInputText
+@using Blazored.Modal.Services
+@using BlazorComponents.Components
+@using System.Reflection
+
+@page "/w"
+
+<div class="flex gap-1">
+    @foreach (var tab in Tabs)
+    {
+        <div class="flex border-1 border-300 p-2">
+            <button @onclick="() => ActivateTab(tab)">Tab</button>
+            <button @onclick="() => CloseTab(tab)">X</button>
+        </div>
+    }
+</div>
+<hr />
+@foreach (var tab in Tabs)
+{
+    <div class="@((ActiveTab == tab) ? "block" : "hidden")">
+        <DynamicComponent Type="tab"></DynamicComponent>
+    </div>
+}
+
+<BlazorDialog>
+    <InputTextArea></InputTextArea>
+</BlazorDialog>
+
+@code {
+
+    List<Type> Tabs { get; set; } = new List<Type>();
+
+    Type? ActiveTab { get; set; }
+
+    protected override void OnInitialized()
+    {
+        this.Tabs.Add(typeof(Tab1));
+        this.Tabs.Add(typeof(Tab2));
+        this.Tabs.Add(typeof(Tab3));
+    }
+
+    public void ActivateTab(Type tab)
+    {
+        this.ActiveTab = tab;
+    }
+
+    public void CloseTab(Type tab)
+    {
+        this.Tabs.Remove(tab);
+    }
+
+    public void AddTab(Type tab)
+    {
+        this.Tabs.Add(tab);
+    }
+}

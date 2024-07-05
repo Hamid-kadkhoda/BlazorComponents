@@ -13,10 +13,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorComponents.ViewModels\BlazorComponents.ViewModels.csproj" />
+    <ProjectReference Include="..\BlazorIcons\BlazorIcons.csproj" />
     <ProjectReference Include="..\BlazorUIComponents\BlazorUIComponents.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Tabs\Request\" />
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
