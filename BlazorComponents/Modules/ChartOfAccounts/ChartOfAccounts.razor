@@ -1,0 +1,39 @@
+﻿
+<FlexLayout StyleClass="h-full" Spacing="3">
+    <GroupAccount GroupAccountChange="@OnGroupAccountChanged"
+                  StyleClass="h-full w-full">
+    </GroupAccount>
+
+    <CascadingValue Value="GroupAccountId">
+        <SubGroupAccount SubGroupAccountChange="@OnSubGroupAccountChanged"
+                         StyleClass="h-full w-full">
+        </SubGroupAccount>
+    </CascadingValue>
+
+    <CascadingValue Value="SubGroupAccountId">
+        <LedgerAccount StyleClass="h-full w-full">
+        </LedgerAccount>
+    </CascadingValue>
+</FlexLayout>
+
+@code {
+
+    private int GroupAccountId { get; set; }
+
+    private int SubGroupAccountId { get; set; }
+
+
+    private void OnGroupAccountChanged(int Id)
+    {
+        Console.WriteLine("On GroupAccount Changed");
+        Console.WriteLine(Id);
+        this.GroupAccountId = Id;
+    }
+
+    private void OnSubGroupAccountChanged(int Id)
+    {
+        Console.WriteLine("On Sub-GroupAccount Changed");
+        Console.WriteLine(Id);
+        this.SubGroupAccountId = Id;
+    }
+}

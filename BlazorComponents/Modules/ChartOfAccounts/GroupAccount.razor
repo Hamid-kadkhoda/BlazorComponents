@@ -1,0 +1,26 @@
+﻿
+@inherits BlazorComponent
+
+<div style="@Style" class="@StyleClass">
+    <BlazorCard StyleClass="h-full">
+        <ActionToolbar Title="Group Account"></ActionToolbar>
+
+        <FlexLayout Spacing="2" Vertical="true">
+            @foreach (var i in NumList)
+            {
+                    <BlazorButton
+                        OnClick="() => GroupAccountChange.InvokeAsync(i)"
+                        Value="@i.ToString()">
+                    </BlazorButton>                
+            }
+        </FlexLayout>
+
+    </BlazorCard>
+</div>
+
+@code {
+
+    [Parameter] public EventCallback<int> GroupAccountChange { get; set; }
+
+    public List<int> NumList { get; set; } = [1,2,3,4,5,6,7,8,9];
+}

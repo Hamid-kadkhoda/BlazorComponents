@@ -1,0 +1,41 @@
+﻿@inherits BlazorComponent
+
+<div style="@Style" class="@StyleClass">
+    <BlazorCard StyleClass="h-full">
+        <ActionToolbar Title="Ledger Account"></ActionToolbar>
+
+        <code class="text-blue-600">@Id</code>
+    </BlazorCard>
+</div>
+
+@code {
+
+    private int cartId;
+
+    [CascadingParameter]
+    public int SubGroupAccountId
+    {
+        get => cartId;
+        set
+        {
+            cartId = value;
+            if (value > 0)
+            {
+                InvokeAsync(async () => await this.GetCartByIdAsync(value));
+            }
+        }
+    }
+
+    public HttpResponseMessage? Response { get; set; }
+
+    public int? Id { get; set; }
+
+    [Inject] public HttpClient http { get; set; } = null!;
+
+    private readonly string Api = "https://fakestoreapi.com/carts";
+
+    private async Task GetCartByIdAsync(int Id)
+    {
+        await this.http.GetAsync($"{Api}/{Id}");
+    }
+}

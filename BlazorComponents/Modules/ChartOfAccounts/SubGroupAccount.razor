@@ -1,0 +1,53 @@
+﻿@using System.ComponentModel.DataAnnotations
+
+@inherits BlazorComponent
+
+
+<div style="@Style" class="@StyleClass">
+    <BlazorCard StyleClass="h-full">
+        <ActionToolbar Title="Sub-Group Account"></ActionToolbar>
+    </BlazorCard>
+</div>
+
+@code {
+
+    [Parameter] public EventCallback<int> SubGroupAccountChange { get; set; }
+
+    private int groupAccountId;
+
+    [CascadingParameter]
+    public int GroupAccountId
+    {
+        get => groupAccountId;
+        set
+        {
+            groupAccountId = value;
+            if(value > 0)
+            {
+                //InvokeAsync(async () => await this.GetProductByIdAsync(value));             
+            }
+        }
+    }
+
+    public HttpResponseMessage? Response { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        Console.WriteLine("OnParametersSetAsync Called...");
+        if (GroupAccountId > 0)
+        {
+            await this.GetProductByIdAsync(this.GroupAccountId);        
+        }
+    }
+
+    [Inject] public HttpClient http { get; set; } = null!;
+
+    private readonly string Api = "https://fakestoreapi.com/products";
+
+    private async Task GetProductByIdAsync(int Id)
+    {
+        await this.http.GetAsync($"{Api}/{Id}");
+        //await this.SubGroupAccountChange.InvokeAsync(Id);
+        await Task.CompletedTask;
+    }
+}

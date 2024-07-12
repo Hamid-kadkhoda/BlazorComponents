@@ -7,5 +7,7 @@ namespace BlazorUIComponents.Components.Base
         [Parameter] public string? Style { get; set; }
 
         [Parameter] public string? StyleClass { get; set; }
+
+        [Parameter] public RenderFragment? ChildContent { get; set; }
     }
 }

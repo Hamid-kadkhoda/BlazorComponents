@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorComponents.Models\BlazorComponents.Models.csproj" />
+    <ProjectReference Include="..\BlazorIcons\BlazorIcons.csproj" />
   </ItemGroup>
 
 </Project>

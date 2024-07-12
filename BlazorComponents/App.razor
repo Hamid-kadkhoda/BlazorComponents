@@ -1,29 +1,12 @@
-﻿@using BlazorComponents.Forms
-@using Blazored.Modal
-
-<CascadingBlazoredModal Position="ModalPosition.Middle">
-    <Router AppAssembly="@typeof(App).Assembly">
-        <Found Context="routeData">
-            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
-        </Found>
-        <NotFound>
-            <PageTitle>Not found</PageTitle>
-            <LayoutView Layout="@typeof(MainLayout)">
-                <p role="alert">Sorry, there's nothing at this address.</p>
-            </LayoutView>
-        </NotFound>
-    </Router>
-</CascadingBlazoredModal>
-
-
-<BlazorDialog @bind-Visibility="@Visibility">
-    <DynamicComponent Type="@Component"></DynamicComponent>
-</BlazorDialog>
-
-
-@code {
-    [Parameter] public Type? Component { get; set; } = typeof(CreateAddressForm);
-
-    [Parameter] public bool Visibility { get; set; } = false;
-}
+﻿<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <PageTitle>Not found</PageTitle>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <p role="alert">Sorry, there's nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
+</Router>

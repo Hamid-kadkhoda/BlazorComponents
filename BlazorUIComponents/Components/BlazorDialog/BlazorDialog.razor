@@ -1,34 +1,38 @@
-﻿
-@if (Visibility)
+﻿@if (Visibility)
 {
     <div class="blazor-dialog">
-            <div style="@Style @MaximizeStyle" 
-                class="@DialogClass @StyleClass blazor-dialog-card">
+        <div style="@Style @MaximizeStyle"
+             class="@DialogClass @StyleClass blazor-dialog-card">
+            @if (ShowHeader)
+            {
                 <div class="blazor-dialog-header">
-                        <h3>@Header</h3>
-                        <div>
-                            @if (Maximizable)
+                    <h3>@Header</h3>
+                    <div>
+                        @if (Maximizable)
+                        {
+                            if (IsMaximize)
                             {
-                                if (IsMaximize)
-                                {
-                                    <button @onclick="MinimizeDialog">
-                                        <MinimizeIcon></MinimizeIcon>
-                                    </button>
-                                }
-                                else
-                                {
-                                    <button @onclick="MaximizeDialog">
-                                        <MaximizeIcon></MaximizeIcon>
-                                    </button>
-                                }
+                                <button @onclick="MinimizeDialog">
+                                    <Window_minimize></Window_minimize>
+                                </button>
                             }
-                            <button @onclick="CloseDialog">
-                                <CloseIcon></CloseIcon>
-                            </button>
-                        </div>
+                            else
+                            {
+                                <button @onclick="MaximizeDialog">
+                                    <Window_maximize></Window_maximize>
+                                </button>
+                            }
+                        }
+                        <button @onclick="CloseDialog">
+                            <Times></Times>
+                        </button>
+                    </div>
                 </div>
+            }
+            <div class="blazor-dialog-body">
                 @ChildContent
             </div>
+        </div>
     </div>
 }
 
@@ -37,7 +41,7 @@
 
     [Parameter] public string? StyleClass { get; set; }
 
-    [Parameter] public bool Maximizable { get; set; } = false;
+    [Parameter] public bool Maximizable { get; set; } = true;
 
     [Parameter] public bool IsMaximize { get; set; } = false;
 
@@ -64,7 +68,7 @@
                     DialogClass = "dialog-close";
                     InvokeAsync(async () =>
                     {
-                        await Task.Delay(300); // Wait for the close animation to finish
+                        await Task.Delay(300);
                         _Visibility = false;
                         await VisibilityChanged.InvokeAsync(_Visibility);
                         StateHasChanged();
@@ -78,7 +82,7 @@
         }
     }
 
-    [Parameter] public bool ShowHeader { get; set; }
+    [Parameter] public bool ShowHeader { get; set; } = true;
 
     private string? MaximizeStyle { get; set; }
 
@@ -102,7 +106,9 @@
 
     private void CloseDialog()
     {
+        MaximizeStyle = "";
         Visibility = false;
+        this.IsMaximize = false;
         VisibilityChanged.InvokeAsync(Visibility);
     }
 }
