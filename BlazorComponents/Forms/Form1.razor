@@ -1,0 +1,59 @@
+﻿@using System.ComponentModel.DataAnnotations
+
+
+<EditForm Model="ProductModel" OnValidSubmit="SubmitAsync">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <FlexLayout Vertical="true" Spacing="4">
+        <InputDate class="p-2 border-1 border-round border-300" @bind-Value="ProductModel.PublishedDate"></InputDate>
+        <FlexLayout Spacing="2">
+            <bold>IsPublished</bold>
+            <InputCheckbox @bind-Value="ProductModel.IsPublished"></InputCheckbox>
+        </FlexLayout>
+        <FlexLayout Vertical="true" Spacing="1">
+            <BlazorInputText Label="Name" @bind-Value="ProductModel.Name"></BlazorInputText>
+            <ValidationMessage class="text-xs text-red-500" For="() => ProductModel.Name" />
+        </FlexLayout>
+        <FlexLayout Vertical="true" Spacing="2">
+            <bold>Price</bold>
+            <InputNumber @bind-Value="ProductModel.Price"></InputNumber>
+            <ValidationMessage class="text-xs text-red-500" For="() => ProductModel.Price" />
+        </FlexLayout>
+        <BlazorButton Type="submit" Value="Submit"></BlazorButton>
+    </FlexLayout>
+</EditForm>
+
+@code {
+
+    [Inject] public HttpClient http { get; set; } = null!;
+
+    public class Product
+    {
+        public Guid Id { get; set; } = Guid.NewGuid();
+
+        [Required, MinLength(4)]
+        public string Name { get; set; } = null!;
+
+        [Range(30,100)] public decimal Price { get; set; }
+
+        public string? Description { get; set; }
+
+        [Required] public bool IsPublished { get; set; }
+
+        public DateTime PublishedDate { get; set; } = DateTime.Now;
+    }
+
+    private EditContext? FormEditContext { get; set; }
+
+    private Product ProductModel = new Product();
+
+    protected override void OnInitialized()
+    {
+        FormEditContext = new(ProductModel);
+    }
+
+    private async Task SubmitAsync()
+    {
+        await this.http.PostAsJsonAsync<Product>("https://api.com/api/product/create", ProductModel);
+    }
+
+}

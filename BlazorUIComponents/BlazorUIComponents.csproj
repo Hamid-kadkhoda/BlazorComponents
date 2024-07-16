@@ -6,6 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Components\BlazorTab\**" />
+    <Content Remove="Components\BlazorTab\**" />
+    <EmbeddedResource Remove="Components\BlazorTab\**" />
+    <None Remove="Components\BlazorTab\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
@@ -13,17 +20,15 @@
 
   <ItemGroup>
     <PackageReference Include="Blazored.Modal" Version="7.3.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.7" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\BlazorTab\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorComponents.Models\BlazorComponents.Models.csproj" />
-    <ProjectReference Include="..\BlazorIcons\BlazorIcons.csproj" />
   </ItemGroup>
 
 </Project>

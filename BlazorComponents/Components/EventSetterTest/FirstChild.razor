@@ -1,0 +1,19 @@
+﻿
+<div style="border: 1px solid black;padding: 1rem">
+    <h4>first child</h4>
+    @foreach (var item in Items)
+    {
+        <div style="margin-block: 1rem">
+            <button @onclick="() => FirstChildItemChange.InvokeAsync(item)"
+                style="padding: 1rem">@item</button>
+        </div>
+    }
+</div>
+
+
+@code {
+
+    [Parameter] public EventCallback<int> FirstChildItemChange { get; set; }
+
+    private List<int> Items = [1, 2, 3, 4, 5, 6, 7, 8];
+}

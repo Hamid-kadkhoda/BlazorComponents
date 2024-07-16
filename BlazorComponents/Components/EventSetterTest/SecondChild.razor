@@ -1,0 +1,35 @@
+﻿<div style="border: 1px solid black;padding: 1rem">
+    <h4>second child</h4>
+</div>
+
+
+@code {
+
+    [Inject] HttpClient http { get; set; } = null!;
+
+    private readonly string Api = "https://fakestoreapi.com/products";
+
+    [Parameter] public EventCallback<int> SecondChildItemChange { get; set; }
+
+    private int firstChildItem;
+
+    [Parameter]
+    public int FirstChildItem
+    {
+        get => firstChildItem;
+        set
+        {
+            if (firstChildItem != value)
+            {
+                InvokeAsync(async () => await GetProductByIdAsync(value));
+                firstChildItem = value;
+            }
+        }
+    }
+
+    private async Task GetProductByIdAsync(int Id)
+    {
+        var response = await this.http.GetAsync($"{Api}/{Id}");
+        await this.SecondChildItemChange.InvokeAsync(Id);
+    }
+}

@@ -1,0 +1,37 @@
+﻿
+
+<code> ====> Open Console / NetWork </code> <br />
+<code> ====> Fetch/XHR Tab </code> <br />
+<code>To See Async Http Request to Fake Store Api </code> <br />
+<code>Based On First Child Items button</code>
+
+<div style="display: flex; gap: 2rem;">
+
+    <FirstChild FirstChildItemChange="@FirstChildChanged"></FirstChild>
+
+    <SecondChild
+        SecondChildItemChange="@SecondChildChanged"
+        FirstChildItem="@FirstItem"></SecondChild>
+
+    <ThirdChild
+        SecondChildItem="@SecondItem"
+    ></ThirdChild>
+</div>
+
+
+@code {
+
+    private int FirstItem { get; set; }
+
+    private int SecondItem { get; set; }
+
+    private void SecondChildChanged(int Id)
+    {
+        this.SecondItem = Id;
+    }
+
+    private void FirstChildChanged(int Id)
+    {
+        this.FirstItem = Id;
+    }
+}
