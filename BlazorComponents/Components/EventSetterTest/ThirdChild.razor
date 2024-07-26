@@ -1,0 +1,34 @@
+﻿
+<div style="border: 1px solid black;padding: 1rem">
+    <h4>Third child</h4>
+</div>
+
+@code {
+
+    [Inject] HttpClient http { get; set; } = null!;
+
+    private readonly string Api = "https://fakestoreapi.com/carts";
+
+    [Parameter] public EventCallback<int> SecondChildItemChange { get; set; }
+
+    private int secondChildItem;
+
+    [Parameter]
+    public int SecondChildItem
+    {
+        get => secondChildItem;
+        set
+        {
+            if (secondChildItem != value && value > 0)
+            {
+                InvokeAsync(async () => await GetCartByIdAsync(value));
+                secondChildItem = value;
+            }
+        }
+    }
+
+    private async Task GetCartByIdAsync(int Id)
+    {
+        var response = await this.http.GetAsync($"{Api}/{Id}");
+    }
+}

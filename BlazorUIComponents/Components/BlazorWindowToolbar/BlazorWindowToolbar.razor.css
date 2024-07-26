@@ -1,0 +1,22 @@
+
+
+.blazor-window-toolbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: 50rem;
+    margin-bottom: 1rem;
+    transition: all 300ms;
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 0.5rem;
+    left: 50%;
+    transform: translate(-50%);
+    border: 1px solid #dedede;
+    height: 50rem;
+}
+
+.blazor-window-toolbar-dispose {
+    bottom: -100% !important;
+}
