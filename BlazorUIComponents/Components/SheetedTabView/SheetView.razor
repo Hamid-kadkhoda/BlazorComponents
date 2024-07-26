@@ -1,0 +1,21 @@
+﻿
+@namespace BlazorUIComponents.SheetedTabView
+
+<h3>SheetView</h3>
+
+@code {
+
+
+    public List<SheetPanel> SheetPanels = new();
+
+    public SheetPanel ActiveSheet { get; set; } = new();
+
+    internal void AddSheet(SheetPanel Sheet)
+    {
+        SheetPanels.Add(Sheet);
+        if (SheetPanels.Count == 1)
+            ActiveSheet = SheetPanels.First();
+        StateHasChanged();
+    }
+
+}

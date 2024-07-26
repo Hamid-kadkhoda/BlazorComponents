@@ -1,0 +1,12 @@
+﻿@namespace BlazorUIComponents.SheetedTabView
+
+
+<h3>SheetedTabPanel</h3>
+
+@code {
+
+    [CascadingParameter] 
+    public TabSheetService TabSheetService { get; set; } = default!;
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

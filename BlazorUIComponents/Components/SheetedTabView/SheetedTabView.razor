@@ -1,0 +1,14 @@
+﻿@namespace BlazorUIComponents.SheetedTabView
+
+
+<CascadingValue Value="@TabSheetService" IsFixed="true">
+    @ChildContent
+</CascadingValue>
+
+@code {
+
+    [Inject] public TabSheetService TabSheetService { get; set; } = default!;
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+}
