@@ -1,21 +1,63 @@
-﻿
-@namespace BlazorUIComponents.SheetedTabView
+﻿@namespace BlazorUIComponents.SheetedTabView
 
-<h3>SheetView</h3>
+
+@{
+    foreach (SheetPanel Sheet in SheetPanels)
+    {
+        var parameters = new Dictionary<string, object>();
+
+        parameters.Add("Title", Sheet.Title);
+        parameters.Add("Content", Sheet.Content);
+        parameters.Add("Key", Sheet.Key);
+
+        <DynamicComponent Type="Sheet.GetType()" Parameters="@parameters"></DynamicComponent>
+    }
+}
+
+<div class="flex">
+
+    @{
+        Console.WriteLine("CascadingValue started....");
+    }
+
+    @foreach (SheetPanel Sheet in SheetPanels)
+    {
+        <button class="tab-button
+                @(TabSheetManager.ActiveTab.Key == Sheet.Key ? "tab-button-active" : "")"
+                @onclick="() => ActivatedSheet(Sheet)">
+            <div class="flex gap-2">
+                <span>@Sheet.Title</span>
+                <span role="button"
+                @onclick:preventDefault
+                @onclick:stopPropagation
+                      @onclick="() => CloseSheet(Sheet)"
+                      title="Close Tab">
+                    <CloseIcon></CloseIcon>
+                </span>
+            </div>
+        </button>
+    }
+</div>
+
 
 @code {
 
+    [CascadingParameter] public SheetedTabPanel? Parent { get; set; }
 
-    public List<SheetPanel> SheetPanels = new();
+    [CascadingParameter] public TabSheetManager TabSheetManager { get; set; } = default!;
 
-    public SheetPanel ActiveSheet { get; set; } = new();
-
-    internal void AddSheet(SheetPanel Sheet)
+    private List<SheetPanel> SheetPanels
     {
-        SheetPanels.Add(Sheet);
-        if (SheetPanels.Count == 1)
-            ActiveSheet = SheetPanels.First();
-        StateHasChanged();
+        get => TabSheetManager.Tabs.FirstOrDefault(t => t.Key == Parent!.Key)!.SheetPanels;
     }
 
+    private void ActivatedSheet(SheetPanel sheet)
+    {
+
+    }
+
+    private void CloseSheet(SheetPanel sheet)
+    {
+
+    }
 }

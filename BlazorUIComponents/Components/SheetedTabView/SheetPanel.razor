@@ -1,11 +1,22 @@
-﻿
-@namespace BlazorUIComponents.SheetedTabView
+﻿@namespace BlazorUIComponents.SheetedTabView
 
 
-<DynamicComponent Type="@ChildContent"></DynamicComponent>
+<section class="@(TabSheetManager.ActiveTab!.Key == Key ? "block" : "hidden")">
+    <DynamicComponent Type="@Content" />
+</section>
 
 @code {
 
-    public Type? ChildContent { get; set; }
 
+    [CascadingParameter] public TabSheetManager TabSheetManager { get; set; } = default!;
+
+    [Parameter] public Guid Key { get; set; }
+
+    [Parameter] public bool IsDefault { get; set; } = false;
+
+    [Parameter] public string Title { get; set; } = null!;
+
+    [Parameter] public Type Content { get; set; } = null!;
+
+    [Parameter] public string? Icon { get; set; }
 }

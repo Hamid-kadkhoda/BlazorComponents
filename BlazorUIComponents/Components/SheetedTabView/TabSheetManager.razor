@@ -1,0 +1,70 @@
+﻿@namespace BlazorUIComponents.SheetedTabView
+
+
+@using System.Reflection
+
+@code {
+
+    private List<SheetedTabPanel> _Tabs = new();
+
+    private Assembly assembly
+    {
+        get => Assembly.GetExecutingAssembly();
+    }
+
+    public SheetedTabPanel ActiveTab { get; set; } = new();
+
+    public IReadOnlyList<SheetedTabPanel> Tabs
+    {
+        get => _Tabs.AsReadOnly();
+    }
+
+    public void AddTab(string Key, bool IsDefault = false, bool IsSeed = false)
+    {
+        try
+        {
+            var panel = new SheetedTabPanel();
+            //var panel = (SheetedTabPanel)assembly.CreateInstance(GetTypeByName(nameof(SheetedTabPanel)).Name)!;
+            panel.Content = GetTypeByName(Key);
+            panel.Title = Key;
+            panel.IsDefault = IsDefault;
+            panel.Key = Guid.NewGuid();
+
+            _Tabs.Add(panel);
+            if (_Tabs.Count == 1)
+            {
+                ActiveTab = _Tabs.FirstOrDefault();
+            }
+            // if (!IsSeed)
+            // {
+            //     StateHasChanged();
+            // }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+
+    }
+
+    public void ActivateTab(SheetedTabPanel tab)
+    {
+        ActiveTab = tab;
+    }
+
+    public void RemoveTab(SheetedTabPanel tab)
+    {
+        _Tabs.Remove(tab);
+        if (_Tabs.Count == 1)
+        {
+            ActiveTab = _Tabs.FirstOrDefault();
+        }
+    }
+
+    private Type GetTypeByName(string Name)
+    {
+        //var assembly = Assembly.GetExecutingAssembly();
+        var type = assembly.GetTypes().FirstOrDefault(c => c.Name == Name);
+        return type;
+    }
+}

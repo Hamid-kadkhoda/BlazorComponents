@@ -28,6 +28,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Components\SheetedTabView\SheetedTabPanel.razor" />
+    <None Include="Components\SheetedTabView\SheetedTabView.razor" />
+    <None Include="Components\SheetedTabView\SheetPanel.razor" />
+    <None Include="Components\SheetedTabView\SheetView.razor" />
+    <None Include="Components\SheetedTabView\TabSheetManager.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BlazorComponents.Models\BlazorComponents.Models.csproj" />
   </ItemGroup>
 

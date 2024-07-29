@@ -1,12 +1,32 @@
 ﻿@namespace BlazorUIComponents.SheetedTabView
 
 
-<h3>SheetedTabPanel</h3>
+<section class="@(TabSheetManager.ActiveTab!.Key == Key ? "block" : "hidden")">
+    <DynamicComponent Type="@Content" />
+
+    <CascadingValue Value="this">
+        <SheetView></SheetView>
+    </CascadingValue>
+</section>
 
 @code {
 
-    [CascadingParameter] 
-    public TabSheetService TabSheetService { get; set; } = default!;
+    //[CascadingParameter] public TabSheetService TabSheetService { get; set; } = default!;
 
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [CascadingParameter] public TabSheetManager TabSheetManager { get; set; } = default!;
+
+    /// <summary>
+    /// Unique Key Of each Tab
+    /// </summary>
+    [Parameter] public Guid Key { get; set; }
+
+    [Parameter] public bool IsDefault { get; set; } = false;
+
+    [Parameter] public string Title { get; set; } = null!;
+
+    [Parameter] public Type Content { get; set; } = null!;
+
+    [Parameter] public List<SheetPanel> SheetPanels { get; set; } = new();
+
+    [Parameter] public string? Icon { get; set; }
 }

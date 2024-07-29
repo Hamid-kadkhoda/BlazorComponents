@@ -1,14 +1,102 @@
-﻿@namespace BlazorUIComponents.SheetedTabView
+﻿
+@namespace BlazorUIComponents.SheetedTabView
 
+<style>
+    .tab-button {
+        padding: 0.875rem;
+        position: relative;
+    }
 
-<CascadingValue Value="@TabSheetService" IsFixed="true">
-    @ChildContent
-</CascadingValue>
+    .tab-button-underline {
+        height: 3px;
+        display: none;
+        left: 0;
+        bottom: -3px;
+        position: absolute;
+        width: 100%;
+        z-index: 2;
+        background-color: #3d8bfd;
+    }
+
+    .tab-button:hover {
+        background-color: #e9ecef;
+    }
+
+    .tab-button-active {
+        background-color: #e9ecef;
+        color: #343a40;
+        font-weight: bolder;
+    }
+
+</style>
+
+@* <CascadingValue Value="@TabSheetManager" IsFixed="true"> *@
+<FlexLayout StyleClass="border-bottom-1 bg-white border-300">
+
+    @{
+        Console.WriteLine("CascadingValue started....");
+    }
+
+    @foreach (SheetedTabPanel Tab in TabSheetManager.Tabs)
+    {
+        <button class="tab-button
+                @(TabSheetManager.ActiveTab.Key == Tab.Key ? "tab-button-active" : "")"
+                @onclick="() => ActivateTab(Tab)">
+            @if (Tab.IsDefault)
+            {
+                <FlexLayout>
+                    <HomeIcon></HomeIcon>
+                </FlexLayout>
+            }
+            else
+            {
+                <FlexLayout Spacing="2">
+                    <span>@Tab.Title</span>
+                    <span role="button"
+                    @onclick:preventDefault
+                    @onclick:stopPropagation
+                          @onclick="() => CloseTab(Tab)"
+                          title="Close Tab">
+                        <CloseIcon></CloseIcon>
+                    </span>
+                </FlexLayout>
+            }
+            <span class="tab-button-underline
+                    @(TabSheetManager.ActiveTab.Key == Tab.Key ? "block" : "")">
+            </span>
+        </button>
+    }
+</FlexLayout>
+@{
+    foreach (SheetedTabPanel Tab in TabSheetManager.Tabs)
+    {
+        var parameters = new Dictionary<string, object>();
+
+        parameters.Add("Title", Tab.Title);
+        parameters.Add("Content", Tab.Content);
+        parameters.Add("Key", Tab.Key);
+
+        <DynamicComponent Type="Tab.GetType()" Parameters="@parameters"></DynamicComponent>
+    }
+}
+@* </CascadingValue> *@
+
 
 @code {
 
-    [Inject] public TabSheetService TabSheetService { get; set; } = default!;
+    //[Inject] public TabSheetService TabSheetService { get; set; } = default!;
 
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    //[Inject] public TabSheetManager TabSheetManager { get; set; } = default!;
 
+    [CascadingParameter] public TabSheetManager TabSheetManager { get; set; } = default!;
+
+    private void ActivateTab(SheetedTabPanel tab)
+    {
+        TabSheetManager.ActivateTab(tab);
+    }
+
+    private void CloseTab(SheetedTabPanel tab)
+    {
+        TabSheetManager.RemoveTab(tab);
+    }
 }
